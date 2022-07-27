@@ -14,3 +14,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+For getX Reference in:
+https://medium.com/@suatozkaya/flutter-getx-basic-authentication-flow-de3d0313d5ae
+
+
+For Github Link in 
+https://github.com/ozkayas/auth_manager/tree/master/lib
