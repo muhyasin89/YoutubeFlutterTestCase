@@ -1,5 +1,4 @@
 import 'package:youtube_test_case/core/cache_manager.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get.dart';
 
 class AuthenticationManager extends GetxController with CacheManager {
