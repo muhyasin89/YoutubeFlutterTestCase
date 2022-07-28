@@ -14,6 +14,7 @@ class _LoginViewState extends State<LoginView> {
   LoginViewModel _viewModel = Get.put(LoginViewModel());
 
   TextEditingController emailCtr = TextEditingController();
+  TextEditingController usernameCtr = TextEditingController();
   TextEditingController passwordCtr = TextEditingController();
   FormType _formType = FormType.login;
 
@@ -36,13 +37,13 @@ class _LoginViewState extends State<LoginView> {
       key: formKey,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         TextFormField(
-          controller: emailCtr,
+          controller: usernameCtr,
           validator: (value) {
             return (value == null || value.isEmpty)
-                ? 'Please Enter Email'
+                ? 'Please Enter Username'
                 : null;
           },
-          decoration: inputDecoration('E-mail', Icons.person),
+          decoration: inputDecoration('Username', Icons.person),
         ),
         SizedBox(
           height: 8,
@@ -59,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
         ElevatedButton(
           onPressed: () async {
             if (formKey.currentState?.validate() ?? false) {
-              await _viewModel.loginUser(emailCtr.text, passwordCtr.text);
+              await _viewModel.loginUser(usernameCtr.text, passwordCtr.text);
             }
           },
           child: Text('Login'),

@@ -1,11 +1,9 @@
 import 'package:youtube_test_case/core/authentication_manager.dart';
-import 'package:youtube_test_case/core/cache_manager.dart';
 import 'package:youtube_test_case/login/model/login_request_model.dart';
 import 'package:youtube_test_case/login/model/register_request_model.dart';
 import 'package:youtube_test_case/login/service/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class LoginViewModel extends GetxController {
   late final LoginService _loginService;
@@ -18,9 +16,9 @@ class LoginViewModel extends GetxController {
     _authManager = Get.find();
   }
 
-  Future<void> loginUser(String email, String password) async {
+  Future<void> loginUser(String username, String password) async {
     final response = await _loginService
-        .fetchLogin(LoginRequestModel(email: email, password: password));
+        .fetchLogin(LoginRequestModel(username: username, password: password));
 
     if (response != null) {
       /// Set isLogin to true
