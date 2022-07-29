@@ -5,7 +5,7 @@ class RegisterResponseModel {
   RegisterResponseModel({this.token, this.id});
 
   RegisterResponseModel.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
+    token = json['access'];
     id = json['id'];
   }
 }
