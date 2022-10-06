@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:youtube_test_case/screen/second_screen.dart';
 import '../providers/counter_provider.dart';
 
 class MyHomeScreen extends StatelessWidget {
@@ -16,6 +17,15 @@ class MyHomeScreen extends StatelessWidget {
           children: [
             Text(
                 "You have push the button this many times: ${context.watch<Counter>().count}"),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SecondScreen()),
+                );
+              },
+              child: Text("Go To Shopping"),
+            )
           ],
         ),
       ),
