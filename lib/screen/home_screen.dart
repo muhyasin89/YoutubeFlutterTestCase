@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/counter_provider.dart';
 
 class MyHomeScreen extends StatelessWidget {
   @override
@@ -12,7 +14,8 @@ class MyHomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("You have push the button this many times"),
+            Text(
+                "You have push the button this many times: ${context.watch<Counter>().count}"),
           ],
         ),
       ),
@@ -20,7 +23,7 @@ class MyHomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => context.read<Counter>().decrement(),
             key: Key('decrement_floatingActionButton'),
             tooltip: 'Decrement',
             child: Icon(Icons.remove),
@@ -38,7 +41,7 @@ class MyHomeScreen extends StatelessWidget {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => context.read<Counter>().increment(),
             key: Key('increment_floatingActionButton'),
             tooltip: 'Increment',
             child: Icon(Icons.add),
