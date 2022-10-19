@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: BlocProvider(
-          create: (BuildContext context) => CounterBloc(0),
+          create: (BuildContext context) => CounterBloc(),
           child: MyHomeScreen(),
         ),
       ),

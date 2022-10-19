@@ -27,7 +27,7 @@ class MyHomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => {_counterBloc.add(CounterEvent.decrement)},
+            onPressed: () => {_counterBloc.add(Decrement())},
             key: Key('decrement_floatingActionButton'),
             tooltip: 'Decrement',
             child: Icon(Icons.remove),
@@ -36,7 +36,7 @@ class MyHomeScreen extends StatelessWidget {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => {_counterBloc.add(Reset())},
             key: Key('reset_floatingActionButton'),
             tooltip: 'Reset',
             child: Icon(Icons.exposure_zero),
@@ -45,7 +45,7 @@ class MyHomeScreen extends StatelessWidget {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => {_counterBloc.add(CounterEvent.increment)},
+            onPressed: () => {_counterBloc.add(Increment())},
             key: Key('increment_floatingActionButton'),
             tooltip: 'Increment',
             child: Icon(Icons.add),
