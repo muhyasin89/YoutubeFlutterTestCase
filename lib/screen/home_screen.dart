@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_test_case/CounterBloc.dart';
 
 class MyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _counterBloc = BlocProvider.of<CounterBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Provider Example App'),
@@ -12,7 +16,10 @@ class MyHomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("You have push the button this many times"),
+            BlocBuilder<CounterBloc, int>(
+                builder: (BuildContext context, int state) {
+              return Text("You have push the button $state many times");
+            }),
           ],
         ),
       ),
@@ -20,7 +27,7 @@ class MyHomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => {_counterBloc.add(CounterEvent.decrement)},
             key: Key('decrement_floatingActionButton'),
             tooltip: 'Decrement',
             child: Icon(Icons.remove),
@@ -38,7 +45,7 @@ class MyHomeScreen extends StatelessWidget {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => {_counterBloc.add(CounterEvent.increment)},
             key: Key('increment_floatingActionButton'),
             tooltip: 'Increment',
             child: Icon(Icons.add),
