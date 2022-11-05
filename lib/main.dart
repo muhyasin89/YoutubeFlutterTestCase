@@ -1,22 +1,8 @@
 import 'package:flutter/material.dart';
 import './screen/home_screen.dart';
-import 'package:bloc/bloc.dart';
-import 'dart:math' as math show Random;
 
 void main() {
   runApp(const MyApp());
-}
-
-const names = ['Foo', 'Bar', 'Baz'];
-
-extension RandomElement<T> on Iterable<T> {
-  T getRandomElement() => elementAt(math.Random().nextInt(length));
-}
-
-class NamesCubit extends Cubit<String?> {
-  NamesCubit() : super(null);
-
-  void pickRandomName() => emit(names.getRandomElement());
 }
 
 class MyApp extends StatelessWidget {
