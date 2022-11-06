@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import './screen/home_screen.dart';
+import 'package:youtube_flutter_test_case/presentation/router.dart';
+import 'package:youtube_flutter_test_case/presentation/screens/todos_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(Todo(
+    router: AppRouter(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Todo extends StatelessWidget {
+  final AppRouter router;
 
+  const Todo({super.key, required this.router});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomeScreen());
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: router.generateRoute,
+    );
   }
 }
