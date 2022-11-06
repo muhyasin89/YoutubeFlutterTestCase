@@ -2,16 +2,28 @@ import 'package:youtube_flutter_test_case/bloc/form_submission_status.dart';
 
 class LoginState {
   final String username;
-  final String password;
+  bool get isValidUsername => username.length > 3;
 
-  LoginState({this.username = '', this.password = ''});
+  final String password;
+  bool get isValidPassword => password.length > 6;
+
+  final FormSubmissionStatus formStatus;
+
+  LoginState({
+    this.username = '',
+    this.password = '',
+    this.formStatus = const InitialFormStatus(),
+  });
 
   LoginState copyWith({
     String? username,
     String? password,
+    FormSubmissionStatus formStatus = const InitialFormStatus(),
   }) {
     return LoginState(
-        username: username ?? this.username,
-        password: password ?? this.password);
+      username: username ?? this.username,
+      password: password ?? this.password,
+      formStatus: formStatus,
+    );
   }
 }

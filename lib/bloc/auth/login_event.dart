@@ -1,13 +1,15 @@
 abstract class LoginEvent {}
 
-class LoginUsernameChange extends LoginEvent {
+class LoginUsernameChanged extends LoginEvent {
   final String username;
-  LoginUsernameChange({required this.username});
+
+  LoginUsernameChanged({required this.username});
 }
 
-class LoginPasswordChange extends LoginEvent {
+class LoginPasswordChanged extends LoginEvent {
   final String password;
-  LoginPasswordChange({required this.password});
+
+  LoginPasswordChanged({required this.password});
 }
 
 class LoginSubmitted extends LoginEvent {}

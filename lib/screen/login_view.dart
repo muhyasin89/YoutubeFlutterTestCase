@@ -1,64 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_flutter_test_case/bloc/auth_repository.dart';
+import 'package:youtube_flutter_test_case/bloc/form_submission_status.dart';
+import 'package:youtube_flutter_test_case/bloc/auth/login_bloc.dart';
+import 'package:youtube_flutter_test_case/bloc/auth/login_event.dart';
+import 'package:youtube_flutter_test_case/bloc/auth/login_state.dart';
 
 class LoginView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
-  void test() {
-    print("Test");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: _loginForm(),
+      body: BlocProvider(
+        create: (context) => LoginBloc(
+          authRepo: context.read<AuthRepository>(),
         ),
+        child: _loginForm(),
       ),
     );
   }
 
   Widget _loginForm() {
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _Field(
-                obscureText: false,
-                iconField: Icons.person,
-                title: "Username",
-                func: test),
-            _Field(
-                obscureText: true,
-                iconField: Icons.security,
-                title: "Password",
-                func: test),
-            _loginButton(title: "Login")
-          ],
+    return BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          final formStatus = state.formStatus;
+          if (formStatus is SubmissionFailed) {
+            _showSnackBar(context, formStatus.exception.toString());
+          }
+        },
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _usernameField(),
+                _passwordField(),
+                _loginButton(),
+              ],
+            ),
+          ),
+        ));
+  }
+
+  Widget _usernameField() {
+    return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      return TextFormField(
+        decoration: InputDecoration(
+          icon: Icon(Icons.person),
+          hintText: 'Username',
         ),
-      ),
-    );
+        validator: (value) =>
+            state.isValidUsername ? null : 'Username is too short',
+        onChanged: (value) => context.read<LoginBloc>().add(
+              LoginUsernameChanged(username: value),
+            ),
+      );
+    });
   }
 
-  Widget _Field(
-      {required bool obscureText,
-      required IconData iconField,
-      required String title,
-      required Function func}) {
-    return TextFormField(
-      obscureText: obscureText,
-      decoration: InputDecoration(icon: Icon(iconField), hintText: title),
-      validator: (value) => func(),
-    );
+  Widget _passwordField() {
+    return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      return TextFormField(
+        obscureText: true,
+        decoration: InputDecoration(
+          icon: Icon(Icons.security),
+          hintText: 'Password',
+        ),
+        validator: (value) =>
+            state.isValidPassword ? null : 'Password is too short',
+        onChanged: (value) => context.read<LoginBloc>().add(
+              LoginPasswordChanged(password: value),
+            ),
+      );
+    });
   }
 
-  Widget _loginButton({required String title}) {
-    return ElevatedButton(onPressed: () {}, child: Text(title));
+  Widget _loginButton() {
+    return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      return state.formStatus is FormSubmitting
+          ? CircularProgressIndicator()
+          : ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  context.read<LoginBloc>().add(LoginSubmitted());
+                }
+              },
+              child: Text('Login'),
+            );
+    });
+  }
+
+  void _showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
