@@ -21,7 +21,7 @@ class AppRouter {
     switch (settings.name) {
       case "/":
         return MaterialPageRoute(
-            builder: (_) => BlocProvider<TodosCubit>(
+            builder: (_) => BlocProvider(
                   child: TodoScreen(),
                   create: (BuildContext context) {
                     return TodosCubit(repository: repository);
