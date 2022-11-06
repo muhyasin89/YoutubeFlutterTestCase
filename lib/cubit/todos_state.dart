@@ -5,8 +5,8 @@ abstract class TodosState {}
 
 class TodosInitial extends TodosState {}
 
-class TodoLoaded extends TodosState {
+class TodosLoaded extends TodosState {
   final List<Todo> todos;
 
-  TodoLoaded({required this.todos});
+  TodosLoaded({required this.todos});
 }

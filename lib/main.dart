@@ -3,16 +3,16 @@ import 'package:youtube_flutter_test_case/presentation/router.dart';
 import 'package:youtube_flutter_test_case/presentation/screens/todos_screen.dart';
 
 void main() {
-  runApp(Todo(
+  runApp(TodoApp(
     router: AppRouter(),
   ));
 }
 
-class Todo extends StatelessWidget {
+class TodoApp extends StatelessWidget {
   final AppRouter router;
 
-  const Todo({super.key, required this.router});
-  // This widget is the root of your application.
+  const TodoApp({Key? key, required this.router}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
