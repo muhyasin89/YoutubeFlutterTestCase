@@ -1,45 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'blocs/blocs.dart';
-import 'services/services.dart';
-import 'pages/pages.dart';
+import 'package:youtube_flutter_test_case/ui/home/pages/home_page.dart';
+import 'package:youtube_flutter_test_case/utils/app_bloc_observer.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(
-        // Injects the Authentication service
-        RepositoryProvider<AuthenticationService>(
-      create: (context) {
-        return FakeAuthenticationService();
-      },
-      // Injects the Authentication BLoC
-      child: BlocProvider<AuthenticationBloc>(
-        create: (context) {
-          final authService = RepositoryProvider.of<AuthenticationService>(context);
-          return AuthenticationBloc(authService)..add(AppLoaded());
-        },
-        child: MyApp(),
-      ),
-    ));
+Future main() async {
+  await dotenv.load(fileName: ".env");
+  BlocOverrides.runZoned(
+    () => runApp(const MyApp()),
+    blocObserver: AppBlocObserver(),
+  );
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Authentication Demo',
+      title: 'Info Games',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.amber,
       ),
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationAuthenticated) {
-            // show home page
-            return HomePage(
-              user: state.user,
-            );
-          }
-          // otherwise show login page
-          return LoginPage();
-        },
-      ),
+      home: HomePage(),
     );
   }
 }
