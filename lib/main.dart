@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:youtube_flutter_test_case/services/authentication.dart';
 import 'package:youtube_flutter_test_case/services/todo.dart';
-import 'package:youtube_flutter_test_case/view/home/login.dart';
+import 'package:youtube_flutter_test_case/view/home.dart';
 
 void main() async {
   var path = Directory.current.path;

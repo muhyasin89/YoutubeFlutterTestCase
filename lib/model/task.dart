@@ -14,4 +14,8 @@ class Task {
   final bool completed;
 
   Task(this.user, this.task, this.completed);
+
+  get key => null;
+
+  delete() {}
 }
