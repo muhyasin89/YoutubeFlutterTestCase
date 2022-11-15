@@ -31,6 +31,17 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               }
+
+              if (state is HomeInitial) {
+                if (state.error != null)
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Error"),
+                      content: Text(state.error!),
+                    ),
+                  );
+              }
             },
             builder: (context, state) {
               if (state is HomeInitial) {
