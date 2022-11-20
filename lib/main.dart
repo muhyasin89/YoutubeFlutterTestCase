@@ -1,21 +1,51 @@
 import 'package:flutter/material.dart';
-import './screen/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youtube_flutter_test_case/utility/app_observer.dart';
+import 'blocs/blocs.dart';
+import 'services/services.dart';
+import 'pages/pages.dart';
 
 void main() {
-  runApp(const MyApp());
+  Bloc.observer = AppBlocObserver();
+
+  runApp(
+      // Injects the Authentication service
+      RepositoryProvider<AuthenticationService>(
+    create: (context) {
+      return FakeAuthenticationService();
+    },
+    // Injects the Authentication BLoC
+    child: BlocProvider<AuthenticationBloc>(
+      create: (context) {
+        final authService =
+            RepositoryProvider.of<AuthenticationService>(context);
+        return AuthenticationBloc(authService)..add(AppLoaded());
+      },
+      child: MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomeScreen());
+      title: 'Authentication Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          if (state is AuthenticationAuthenticated) {
+            // show home page
+            return HomePage(
+              user: state.user,
+            );
+          }
+          // otherwise show login page
+          return LoginPage();
+        },
+      ),
+    );
   }
 }

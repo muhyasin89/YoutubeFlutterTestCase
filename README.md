@@ -14,3 +14,16 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+Reference:
+https://medium.com/flutter-community/flutter-login-tutorial-with-flutter-bloc-ea606ef701ad
+
+https://medium.flutterdevs.com/validation-using-bloc-in-flutter-5de8c7ec5ad4
+https://pub.dev/packages/flutter_form_bloc/example
+
+https://bosctechlabs.com/validate-form-with-flutter-bloc/
+
+https://codeclusive.io/blog/flutter-authorization-with-bloc/
+
+https://honesdev.com/flutter-authentication-with-bloc-architecture/
